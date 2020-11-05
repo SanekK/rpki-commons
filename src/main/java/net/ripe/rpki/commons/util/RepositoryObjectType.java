@@ -34,19 +34,23 @@ public enum RepositoryObjectType {
     Manifest, Roa, Certificate, Crl, Gbr, Unknown;
 
     public static RepositoryObjectType parse(String name) {
-        if (name.endsWith(".mft")) {
+        if (name.length() < 4) {
+            return Unknown;
+        }
+        String extension = name.substring(name.length() - 4);
+        if (extension.compareToIgnoreCase(".mft") == 0) {
             return Manifest;
         }
-        if (name.endsWith(".crl")) {
+        if (extension.compareToIgnoreCase(".crl") == 0) {
             return Crl;
         }
-        if (name.endsWith(".cer")) {
+        if (extension.compareToIgnoreCase(".cer") == 0) {
             return Certificate;
         }
-        if (name.endsWith(".roa")) {
+        if (extension.compareToIgnoreCase(".roa") == 0) {
             return Roa;
         }
-        if (name.endsWith(".gbr")) {
+        if (extension.compareToIgnoreCase(".gbr") == 0) {
             return Gbr;
         }
         return Unknown;
